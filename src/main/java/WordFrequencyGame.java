@@ -1,8 +1,4 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.StringJoiner;
+import java.util.*;
 
 public class WordFrequencyGame {
 
@@ -17,13 +13,7 @@ public class WordFrequencyGame {
             return sentence + " 1";
         } else {
             try {
-                String[] words = sentence.split(SPACE_PATTERN);
-
-                List<WordInfo> wordInfos = new ArrayList<>();
-                for (String word : words) {
-                    WordInfo wordInfo = new WordInfo(word, 1);
-                    wordInfos.add(wordInfo);
-                }
+                List<WordInfo> wordInfos = getWordInfos(sentence);
 
                 Map<String, List<WordInfo>> map = getListMap(wordInfos);
 
@@ -43,6 +33,16 @@ public class WordFrequencyGame {
         }
     }
 
+    private List<WordInfo> getWordInfos(String sentence){
+        List<WordInfo> wordInfos = new ArrayList<>();
+        String[] words = sentence.split(SPACE_PATTERN);
+        for (String word : words) {
+            WordInfo wordInfo = new WordInfo(word, 1);
+            wordInfos.add(wordInfo);
+        }
+        return  wordInfos;
+    }
+
     private String joinerWordInfos(List<WordInfo> wordInfos) {
         StringJoiner joiner = new StringJoiner(NEW_LINE);
         for (WordInfo w : wordInfos) {
@@ -55,7 +55,6 @@ public class WordFrequencyGame {
     private Map<String, List<WordInfo>> getListMap(List<WordInfo> wordInfoList) {
         Map<String, List<WordInfo>> map = new HashMap<>();
         for (WordInfo wordInfo : wordInfoList) {
-//       map.computeIfAbsent(wordInfo.getValue(), k -> new ArrayList<>()).add(wordInfo);
             if (!map.containsKey(wordInfo.getValue())) {
                 ArrayList arr = new ArrayList<>();
                 arr.add(wordInfo);
