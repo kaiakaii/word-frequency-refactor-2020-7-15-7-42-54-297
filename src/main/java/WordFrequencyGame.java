@@ -9,21 +9,16 @@ public class WordFrequencyGame {
     private static final String NEW_LINE = "\n";
 
     public String getResult(String sentence) {
-
-        if (sentence.split(SPACE_PATTERN).length == 1) {
-            return sentence + " 1";
-        } else {
-            try {
-                List<WordInfo> wordInfos = getWordInfos(sentence);
-                wordInfos.sort((firstWordInfo, secondWordInfo) -> secondWordInfo.getWordCount() - firstWordInfo.getWordCount());
-                return joinerWordInfos(wordInfos);
-            } catch (Exception e) {
-                return CALCULATE_ERROR;
-            }
+        try {
+            List<WordInfo> wordInfos = getWordInfos(sentence);
+            wordInfos.sort((firstWordInfo, secondWordInfo) -> secondWordInfo.getWordCount() - firstWordInfo.getWordCount());
+            return joinerWordInfos(wordInfos);
+        } catch (Exception e) {
+            return CALCULATE_ERROR;
         }
     }
 
-    private List<WordInfo> getWordInfos(String sentence){
+    private List<WordInfo> getWordInfos(String sentence) {
         List<WordInfo> wordInfos = new ArrayList<>();
         String[] words = sentence.split(SPACE_PATTERN);
         for (String word : words) {
