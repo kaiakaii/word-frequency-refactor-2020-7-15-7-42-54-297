@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.Map.Entry;
 
 public class WordFrequencyGame {
 
@@ -14,18 +15,7 @@ public class WordFrequencyGame {
         } else {
             try {
                 List<WordInfo> wordInfos = getWordInfos(sentence);
-
-                Map<String, List<WordInfo>> map = getListMap(wordInfos);
-
-                List<WordInfo> list = new ArrayList<>();
-                for (Map.Entry<String, List<WordInfo>> entry : map.entrySet()) {
-                    WordInfo wordInfo = new WordInfo(entry.getKey(), entry.getValue().size());
-                    list.add(wordInfo);
-                }
-                wordInfos = list;
-
                 wordInfos.sort((firstWordInfo, secondWordInfo) -> secondWordInfo.getWordCount() - firstWordInfo.getWordCount());
-
                 return joinerWordInfos(wordInfos);
             } catch (Exception e) {
                 return CALCULATE_ERROR;
@@ -40,7 +30,14 @@ public class WordFrequencyGame {
             WordInfo wordInfo = new WordInfo(word, 1);
             wordInfos.add(wordInfo);
         }
-        return  wordInfos;
+        Map<String, List<WordInfo>> map = getListMap(wordInfos);
+        List<WordInfo> tempWordInfos = new ArrayList<>();
+        map.forEach((word, value) -> {
+            WordInfo wordInfo = new WordInfo(word, value.size());
+            tempWordInfos.add(wordInfo);
+        });
+        wordInfos = tempWordInfos;
+        return wordInfos;
     }
 
     private String joinerWordInfos(List<WordInfo> wordInfos) {
