@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 public class WordFrequencyGame {
 
     private static final String SPACE_PATTERN = "\\s+";
+    private static final String CALCULATE_ERROR = "Calculate Error";
 
     public String getResult(String inputStr) {
 
@@ -43,7 +44,7 @@ public class WordFrequencyGame {
                 }
                 return joiner.toString();
             } catch (Exception e) {
-                return "Calculate Error";
+                return CALCULATE_ERROR;
             }
         }
     }
