@@ -36,16 +36,20 @@ public class WordFrequencyGame {
 
                 wordInfos.sort((firstWordInfo, secondWordInfo) -> secondWordInfo.getWordCount() - firstWordInfo.getWordCount());
 
-                StringJoiner joiner = new StringJoiner(NEW_LINE);
-                for (WordInfo w : wordInfos) {
-                    String s = w.getValue() + BLANK_SPACE + w.getWordCount();
-                    joiner.add(s);
-                }
-                return joiner.toString();
+                return joinerWordInfos(wordInfos);
             } catch (Exception e) {
                 return CALCULATE_ERROR;
             }
         }
+    }
+
+    private String joinerWordInfos(List<WordInfo> wordInfos) {
+        StringJoiner joiner = new StringJoiner(NEW_LINE);
+        for (WordInfo w : wordInfos) {
+            String s = w.getValue() + BLANK_SPACE + w.getWordCount();
+            joiner.add(s);
+        }
+        return joiner.toString();
     }
 
     private Map<String, List<WordInfo>> getListMap(List<WordInfo> wordInfoList) {
